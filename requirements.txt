@@ -1,11 +1,10 @@
-django==1.2.7
-psycopg2==2.4.1
+django==1.4.13
 django-extensions
 werkzeug
 south
-reportlab
+reportlab==2.3
 pypdf
 html5lib
 pisa
-pil
-django-registration
+django-registration==0.8
+unicodecsv
