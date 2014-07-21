@@ -24,6 +24,7 @@ class InvoiceForm(ModelForm):
                                       label=_('Penalty rate'),
                                       localize=True,
                                       required=False,
+                                      initial=10.12,
                                       help_text=_('at least three times the <a href="%(french_rate)s">legal rate</a> or by default <a href="%(ecb_rate)s">rate applied by the European Central Bank</a> to its most recent refinancing operation plus 10 points') % {'french_rate': 'http://www.minefe.gouv.fr/directions_services/dgtpe/taux/taux_legal.php',
                                                                                                                                                                                                                                                                               'ecb_rate': 'http://fr.global-rates.com/taux-de-interets/banques-centrales/banque-centrale-europeenne/taux-de-bce.aspx'})
 
@@ -39,6 +40,7 @@ class InvoiceForm(ModelForm):
         self.fields['execution_begin_date'].widget.attrs['class'] = 'date'
         self.fields['execution_end_date'].widget.attrs['class'] = 'date'
         self.fields['penalty_date'].widget.attrs['class'] = 'date'
+        self.fields['discount_conditions'].widget.attrs['size'] = '50'
         self.fields['footer_note'].widget.attrs['size'] = '90'
 
     def clean(self):

@@ -211,8 +211,9 @@ class Invoice(OwnedObject):
     execution_begin_date = models.DateField(blank=True, null=True, verbose_name=_("Execution begin date"), help_text=_('format: mm/dd/yyyy'))
     execution_end_date = models.DateField(blank=True, null=True, verbose_name=_("Execution end date"), help_text=_('format: mm/dd/yyyy'))
     penalty_date = models.DateField(blank=True, null=True, verbose_name=_("Penalty date"), help_text=_('format: mm/dd/yyyy'))
-    penalty_rate = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=2, verbose_name=_("Penalty rate"))
-    discount_conditions = models.CharField(max_length=100, blank=True, null=True, verbose_name=_("Discount conditions"))
+    penalty_rate = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=2, verbose_name=_("Penalty rate"), default=10.12)
+    discount_conditions = models.CharField(max_length=100, blank=True, null=True, verbose_name=_("Discount conditions"),
+        default=u"Pas d'escompte pour règlement anticipé")
     footer_note = models.CharField(max_length=90, blank=True, null=True, verbose_name=_('Footer note'))
     objects = InvoiceManager()
 
@@ -272,7 +273,10 @@ class Invoice(OwnedObject):
         cursor = connection.cursor()
         cursor.execute('SELECT SUM(accounts_invoicerow.amount * accounts_invoicerow.vat_rate / 100) AS "vat" FROM "accounts_invoicerow" WHERE "accounts_invoicerow"."invoice_id" = %s', [self.id])
         row = cursor.fetchone()
-        vat = row[0] or Decimal(0)
+        vat = row[0]
+        if not vat: vat = Decimal(0)
+        else: vat = Decimal(vat) 
+        
         vat = vat.quantize(Decimal(1)) if vat == vat.to_integral() else vat.normalize()
         return vat
 

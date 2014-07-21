@@ -7,6 +7,8 @@ class SubscriptionAdmin(admin.ModelAdmin):
 admin.site.register(UserProfile)
 
 class SalesLimitAdmin(admin.ModelAdmin):
+    list_display = ('year', 'activity', 'limit', 'limit2')
+    list_filter = ('year', 'activity')
     save_as=True
 admin.site.register(SalesLimit, SalesLimitAdmin)
 
