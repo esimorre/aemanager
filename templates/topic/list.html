@@ -21,14 +21,14 @@
         <tbody>
             {% for topic in topics.object_list %}
             <tr class="{% cycle "row1" "row2" %}">
-                <td><a href="{% url topic_detail topic.id %}">{{ topic.title }}</a></td>
+                <td><a href="{% url 'topic_detail' topic.id %}">{{ topic.title }}</a></td>
                 <td>
                     {{ topic.first_message.creation_date }}<br>
                     {% blocktrans with topic.first_message.display_author as author %}by {{ author }}{% endblocktrans %}</td>
                 <td>{{ topic.views }}</td>
                 <td>{{ topic.messages.count }}</td>
                 <td>
-                    <a href="{% url topic_detail topic.id %}?page=-1#last">
+                    <a href="{% url 'topic_detail' topic.id %}?page=-1#last">
                     {{ topic.last_message.creation_date }}<br>
                     {% blocktrans with topic.last_message.display_author as author %}by {{ author }}{% endblocktrans %}
                     </a>

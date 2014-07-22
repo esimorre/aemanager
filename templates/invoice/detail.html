@@ -6,8 +6,8 @@
 {% block title %}{% url 'contact_detail' invoice.customer.id as customer_url %}{% blocktrans with invoice.customer as customer and customer_url as customer_url %}Invoice for <a href="{{ customer_url }}">{{ customer }}</a>{% endblocktrans %}{% endblock %}
 
 {% block context_menu %}
-<div><a href="{% url invoice_edit invoice.id %}">{% trans "Edit" %}</a></div>
-<div><a href="{% url invoice_delete invoice.id %}">{% trans "Delete" %}</a></div>
+<div><a href="{% url 'invoice_edit' invoice.id %}">{% trans "Edit" %}</a></div>
+<div><a href="{% url 'invoice_delete' invoice.id %}">{% trans "Delete" %}</a></div>
 {% endblock %}
 
 {% block content %}
@@ -70,7 +70,7 @@
     {% include "detail_field.html" %}
     {% endwith %}{% endwith %}
     <div class="detail-row">
-      <div><label>{% trans "Exported file" %} :</label><a href="{% url invoice_download invoice.id %}">{% trans "download pdf file" %}</a></div>
+      <div><label>{% trans "Exported file" %} :</label><a href="{% url 'invoice_download' invoice.id %}">{% trans "download pdf file" %}</a></div>
     </div>
 </fieldset>
 
@@ -97,7 +97,7 @@
         {% for invoicerow in invoice.invoice_rows.all %}
            <tr class="{% cycle 'row1' 'row2' %}">
                 <td>{{ invoicerow.label }}</td>
-                <td>{% if invoicerow.proposal %}<a href="{% url proposal_detail invoicerow.proposal.id %}">{{ invoicerow.proposal }}</a>{% endif %}</td>
+                <td>{% if invoicerow.proposal %}<a href="{% url 'proposal_detail' invoicerow.proposal.id %}">{{ invoicerow.proposal }}</a>{% endif %}</td>
                 <td>{% if invoicerow.proposal %}{% if invoicerow.balance_payments %}{% trans "yes" %}{% else %}{% trans "no" %}{% endif %}{% endif %}</td>
                 <td>{{ invoicerow.get_category_display }}</td>
                 <td>{{ invoicerow.quantity|floatformat:"-2" }}</td>

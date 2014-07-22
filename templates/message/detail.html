@@ -58,7 +58,7 @@
 {% endif %}
 
 <h1>{% trans "Comment" %}</h1>
-<form action="{% url message_add issue_id=issue.id %}" method="post" id="comment-add-form">
+<form action="{% url 'message_add' issue_id=issue.id %}" method="post" id="comment-add-form">
     {% csrf_token %}
     <fieldset class="module aligned">
     {% with commentForm as form %}

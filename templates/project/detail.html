@@ -3,8 +3,8 @@
 {% load modeltags %}
 
 {% block context_menu %}
-<div><a href="{% url project_edit project.id %}">{% trans "Edit" %}</a></div>
-<div><a href="{% url project_delete project.id %}">{% trans "Delete" %}</a></div>
+<div><a href="{% url 'project_edit' project.id %}">{% trans "Edit" %}</a></div>
+<div><a href="{% url 'project_delete' project.id %}">{% trans "Delete" %}</a></div>
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,7 @@
     </div>
 </fieldset>
 
-<div class="context-menu"><a href="{% url proposal_add project_id=project.id %}">{% trans "Add a proposal" %}</a></div>
+<div class="context-menu"><a href="{% url 'proposal_add' project_id=project.id %}">{% trans "Add a proposal" %}</a></div>
 <h1>{% trans "Proposals" %}</h1>
 {% if project.proposal_set.all %}
 <div class="search-list">
@@ -35,10 +35,10 @@
         <tbody>
         {% for proposal in project.proposal_set.all %}
            <tr class="{% cycle 'row1' 'row2' %}">
-                <td><a href="{% url proposal_detail proposal.id %}">{{ proposal.reference }}</a></td>
-                <td>{% if proposal.begin_date and proposal.end_date %}<a href="{% url proposal_detail proposal.id %}">{% blocktrans with proposal.begin_date as begin_date and proposal.end_date as end_date %}{{ begin_date }} to {{ end_date }}{% endblocktrans %}</a>{% endif %}</td>
-                <td><a href="{% url proposal_detail proposal.id %}">{{ proposal.get_state_display }}</a></td>
-                <td><a href="{% url proposal_detail proposal.id %}">{{ proposal.amount|default:"" }}</a></td>
+                <td><a href="{% url 'proposal_detail' proposal.id %}">{{ proposal.reference }}</a></td>
+                <td>{% if proposal.begin_date and proposal.end_date %}<a href="{% url 'proposal_detail' proposal.id %}">{% blocktrans with proposal.begin_date as begin_date and proposal.end_date as end_date %}{{ begin_date }} to {{ end_date }}{% endblocktrans %}</a>{% endif %}</td>
+                <td><a href="{% url 'proposal_detail' proposal.id %}">{{ proposal.get_state_display }}</a></td>
+                <td><a href="{% url 'proposal_detail' proposal.id %}">{{ proposal.amount|default:"" }}</a></td>
             </tr>
         {% endfor %}
         </tbody>
@@ -48,7 +48,7 @@
 <div>{% trans "No proposals" %}</div>
 {% endif %}
 
-<div class="context-menu"><a href="{% url invoice_add customer_id=project.customer.id %}">{% trans "Draw up an invoice" %}</a></div>
+<div class="context-menu"><a href="{% url 'invoice_add' customer_id=project.customer.id %}">{% trans "Draw up an invoice" %}</a></div>
 <h1>{% trans "Invoices" %}</h1>
 {% if invoices %}
 <div class="search-list">
@@ -63,9 +63,9 @@
         <tbody>
         {% for invoice in invoices %}
            <tr class="{% cycle 'row1' 'row2' %}">
-                <td><a href="{% url invoice_detail invoice.id %}">{{ invoice.invoice_id }}</a></td>
-                <td><a href="{% url invoice_detail invoice.id %}">{{ invoice.get_state_display }}</a></td>
-                <td><a href="{% url invoice_detail invoice.id %}">{{ invoice.amount|default:"" }}</a></td>
+                <td><a href="{% url 'invoice_detail' invoice.id %}">{{ invoice.invoice_id }}</a></td>
+                <td><a href="{% url 'invoice_detail' invoice.id %}">{{ invoice.get_state_display }}</a></td>
+                <td><a href="{% url 'invoice_detail' invoice.id %}">{{ invoice.amount|default:"" }}</a></td>
             </tr>
         {% endfor %}
         </tbody>

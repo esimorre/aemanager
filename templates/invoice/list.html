@@ -4,7 +4,7 @@
 {% block content %}
 {% if invoices %}
 <div>
-    <form action="{% url invoice_list_export %}" method="get">
+    <form action="{% url 'invoice_list_export' %}" method="get">
         {% trans "Export invoice book" %} &nbsp;<select name="year">
         {% for year in years %}
             <option value="{{ year }}">{{ year }}</option>

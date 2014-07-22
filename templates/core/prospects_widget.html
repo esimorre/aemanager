@@ -6,6 +6,6 @@
 <div>{% trans "Average unit price" %} : {{ prospects.average_unit_price|floatformat:0 }}</div>
 <div>{% trans "Proposals to send" %} : <ul>
 {% for proposal in prospects.proposals_to_send %}
-    <li><a href="{% url proposal_detail proposal.id %}">{{ proposal }}</a></li>
+    <li><a href="{% url 'proposal_detail' proposal.id %}">{{ proposal }}</a></li>
 {% endfor %}
 </div>

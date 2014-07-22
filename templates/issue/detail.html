@@ -6,10 +6,10 @@
 {% if issue.is_open %}<div><a href="{% url 'issue_list' %}">{% trans "Back to list" %}</a></div>{% endif %}
 {% if issue.is_closed %}<div><a href="{% url 'closed_issue_list' %}">{% trans "Back to list" %}</a></div>{% endif %}
 {% if issue.owner == user or user.is_superuser %}
-{% if issue.owner == user %}<div><a href="{% url issue_edit issue.id %}">{% trans "Edit" %}</a></div>{% endif %}
-{% if issue.is_open %}<div><a href="{% url issue_close issue.id %}">{% trans "Close" %}</a></div>{% endif %}
-{% if issue.is_closed %}<div><a href="{% url issue_reopen issue.id %}">{% trans "Reopen" %}</a></div>{% endif %}
-{% if issue.owner == user %}<div><a href="{% url issue_delete issue.id %}">{% trans "Delete" %}</a></div>{% endif %}
+{% if issue.owner == user %}<div><a href="{% url 'issue_edit' issue.id %}">{% trans "Edit" %}</a></div>{% endif %}
+{% if issue.is_open %}<div><a href="{% url 'issue_close' issue.id %}">{% trans "Close" %}</a></div>{% endif %}
+{% if issue.is_closed %}<div><a href="{% url 'issue_reopen' issue.id %}">{% trans "Reopen" %}</a></div>{% endif %}
+{% if issue.owner == user %}<div><a href="{% url 'issue_delete' issue.id %}">{% trans "Delete" %}</a></div>{% endif %}
 {% endif %}
 {% endblock %}
 
@@ -37,7 +37,7 @@
     {% if issue.is_open %}
     <div class="detail-row">
       <div>
-      <label>{% trans "Votes" %} :</label> {{ issue.vote_count }} ({{ user_votes }}) {% if votes_remaining %}<a href="{% url vote issue_id=issue.id %}"><img src="{{ MEDIA_URL }}img/icon_addlink.gif" /></a>{% endif %} {% if user_votes %}<a href="{% url unvote issue_id=issue.id %}"><img src="{{ MEDIA_URL }}img/icon_removelink.gif" /></a>{% endif %}&nbsp;&nbsp;({% blocktrans with votes_remaining as votes_remaining %}{{ votes_remaining }} votes remaining{% endblocktrans %})
+      <label>{% trans "Votes" %} :</label> {{ issue.vote_count }} ({{ user_votes }}) {% if votes_remaining %}<a href="{% url 'vote' issue_id=issue.id %}"><img src="{{ MEDIA_URL }}img/icon_addlink.gif" /></a>{% endif %} {% if user_votes %}<a href="{% url 'unvote' issue_id=issue.id %}"><img src="{{ MEDIA_URL }}img/icon_removelink.gif" /></a>{% endif %}&nbsp;&nbsp;({% blocktrans with votes_remaining as votes_remaining %}{{ votes_remaining }} votes remaining{% endblocktrans %})
       </div>
     </div>
     {% endif %}

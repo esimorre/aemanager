@@ -27,13 +27,13 @@
         <tbody>
         {% for issue in issues %}
            <tr class="{% cycle 'row2' 'row1' %} row">
-                <td><a href="{% url issue_detail id=issue.id %}">{{ issue.subject }}</a></td>
-                <td><a href="{% url issue_detail id=issue.id %}">{{ issue.owner|display_name }}</a></td>
-                <td><a href="{% url issue_detail id=issue.id %}">{{ issue.update_date }}</a></td>
-                <td><a href="{% url issue_detail id=issue.id %}">{{ issue.last_comment_date }}</a></td>
-                <td><a href="{% url issue_detail id=issue.id %}">{{ issue.get_category_display }}</a></td>
-                <td><a href="{% url issue_detail id=issue.id %}">{{ issue.comments }}</a></td>
-                {% if state == "open" %}<td><a href="{% url issue_detail id=issue.id %}">{{ issue.votes }}</a></td>{% endif %}
+                <td><a href="{% url 'issue_detail' id=issue.id %}">{{ issue.subject }}</a></td>
+                <td><a href="{% url 'issue_detail' id=issue.id %}">{{ issue.owner|display_name }}</a></td>
+                <td><a href="{% url 'issue_detail' id=issue.id %}">{{ issue.update_date }}</a></td>
+                <td><a href="{% url 'issue_detail' id=issue.id %}">{{ issue.last_comment_date }}</a></td>
+                <td><a href="{% url 'issue_detail' id=issue.id %}">{{ issue.get_category_display }}</a></td>
+                <td><a href="{% url 'issue_detail' id=issue.id %}">{{ issue.comments }}</a></td>
+                {% if state == "open" %}<td><a href="{% url 'issue_detail' id=issue.id %}">{{ issue.votes }}</a></td>{% endif %}
                 {% if user.is_superuser %}<td>{% if issue.external_reference %}<a href="{{ issue.external_url }}">{{ issue.external_reference }}</a>{% endif %}</td>{% endif %}
             </tr>
         {% endfor %}

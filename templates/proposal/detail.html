@@ -5,11 +5,11 @@
 {% load htmltags %}
 {% load filetags %}
 
-{% block title %}{% url project_detail proposal.project.id as project_url %}{% blocktrans with proposal.project as project and project_url as project_url %}Proposal for <a href="{{ project_url }}">{{ project }}</a>{% endblocktrans %}{% endblock %}
+{% block title %}{% url 'project_detail' proposal.project.id as project_url %}{% blocktrans with proposal.project as project and project_url as project_url %}Proposal for <a href="{{ project_url }}">{{ project }}</a>{% endblocktrans %}{% endblock %}
 
 {% block context_menu %}
-<div><a href="{% url proposal_edit proposal.id %}">{% trans "Edit" %}</a></div>
-<div><a href="{% url proposal_delete proposal.id %}">{% trans "Delete" %}</a></div>
+<div><a href="{% url 'proposal_edit' proposal.id %}">{% trans "Edit" %}</a></div>
+<div><a href="{% url 'proposal_delete' proposal.id %}">{% trans "Delete" %}</a></div>
 {% endblock %}
 
 {% block content %}
@@ -21,7 +21,7 @@
       <div>
       <label>{{ proposal|verbose_name:"state" }} :</label> {{ proposal.get_state_display }}
       {% for next_state in next_states %}
-      <form class="inline-form" action="{% url proposal_change_state proposal.id %}" method="POST">
+      <form class="inline-form" action="{% url 'proposal_change_state' proposal.id %}" method="POST">
       {% csrf_token %}
       <input type="hidden" name="next_state" value="{{ next_state.0 }}" />
       <input class="" type="submit" name="state_action" value="{{ next_state.1 }}" />
@@ -54,7 +54,7 @@
     {% include "detail_field.html" %}
     {% endwith %}{% endwith %}
     <div class="detail-row">
-      <div><label>{% trans "Exported file" %} :</label><a href="{% url proposal_download proposal.id %}">{% trans "download pdf file" %}</a></div>
+      <div><label>{% trans "Exported file" %} :</label><a href="{% url 'proposal_download' proposal.id %}">{% trans "download pdf file" %}</a></div>
     </div>
 </fieldset>
 
@@ -96,7 +96,7 @@
 <div>{% trans "No rows" %}</div>
 {% endif %}
 
-{% if proposal.can_be_converted_to_invoice %}<div class="context-menu"><a href="{% url invoice_add_from_proposal customer_id=proposal.project.customer.id proposal_id=proposal.id %}">{% trans "Convert proposal to invoice" %}</a></div>{% endif %}
+{% if proposal.can_be_converted_to_invoice %}<div class="context-menu"><a href="{% url 'invoice_add'_from_proposal customer_id=proposal.project.customer.id proposal_id=proposal.id %}">{% trans "Convert proposal to invoice" %}</a></div>{% endif %}
 <h1>{% trans "Invoices" %}</h1>
 {% if invoices %}
 <div class="search-list">
@@ -111,9 +111,9 @@
         <tbody>
         {% for invoice in invoices %}
            <tr class="{% cycle 'row1' 'row2' %}">
-                <td><a href="{% url invoice_detail invoice.id %}">{{ invoice.invoice_id }}</a></td>
-                <td><a href="{% url invoice_detail invoice.id %}">{{ invoice.get_state_display }}</a></td>
-                <td><a href="{% url invoice_detail invoice.id %}">{{ invoice.amount|default:""|floatformat }}</a></td>
+                <td><a href="{% url 'invoice_detail' invoice.id %}">{{ invoice.invoice_id }}</a></td>
+                <td><a href="{% url 'invoice_detail' invoice.id %}">{{ invoice.get_state_display }}</a></td>
+                <td><a href="{% url 'invoice_detail' invoice.id %}">{{ invoice.amount|default:""|floatformat }}</a></td>
             </tr>
         {% endfor %}
         </tbody>
@@ -127,12 +127,12 @@
 <fieldset class="module aligned">
     {% with proposal as object %}{% with "contract_file" as name %}
     <div class="detail-row">
-      <div><label>{{ object|verbose_name:name }} :</label>{% if object.contract_file %} <a href="{% url proposal_uploaded_contract_download proposal.id %}">{{ object.contract_file.name|basename|default:'' }}</a>{% endif %}
+      <div><label>{{ object|verbose_name:name }} :</label>{% if object.contract_file %} <a href="{% url 'proposal_uploaded_contract_download' proposal.id %}">{{ object.contract_file.name|basename|default:'' }}</a>{% endif %}
       </div>
     </div>
     {% endwith %}{% endwith %}
     <div class="detail-row">
-      <div><label>{% trans "Contract" %} :</label><a href="{% url proposal_contract_download proposal.id %}">{% trans "download pdf file" %}</a></div>
+      <div><label>{% trans "Contract" %} :</label><a href="{% url 'proposal_contract_download' proposal.id %}">{% trans "download pdf file" %}</a></div>
     </div>
     {% with proposal as object %}{% with "contract_content" as name %}
     <div class="detail-row">

@@ -69,7 +69,7 @@ Keep using this service until <strong>{{ next_expiration_date }}</strong> for <s
 
 {% endif %}
 <div>
-{% url unregister as unregister_link %}
+{% url 'unregister' as unregister_link %}
 {% blocktrans %}
 If you want to leave us, follow this link : <a href="{{ unregister_link }}">Unregister</a>
 {% endblocktrans %}
