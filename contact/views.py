@@ -14,7 +14,7 @@ from django.db.models.query_utils import Q
 from core.decorators import settings_required
 from autoentrepreneur.decorators import subscription_required
 from django.http import HttpResponse
-from django.utils import simplejson
+import json
 from django.db.models.aggregates import Max
 
 @settings_required
@@ -191,4 +191,4 @@ def contact_ajax_search(request):
                      'value':'name'})
       .values('id', 'name', 'address__street', 'address__zipcode', 'address__city', 'address__country__id', 'label', 'value'))
 
-    return HttpResponse(simplejson.dumps(data), mimetype='application/javascript')
+    return HttpResponse(json.dumps(data), mimetype='application/javascript')

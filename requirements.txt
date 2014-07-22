@@ -1,4 +1,4 @@
-django==1.4.13
+django==1.6.5
 django-extensions
 werkzeug
 south
@@ -6,5 +6,5 @@ reportlab==2.3
 pypdf
 html5lib
 pisa
-django-registration==0.8
+django-registration==1.0
 unicodecsv

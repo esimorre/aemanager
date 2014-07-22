@@ -3,7 +3,7 @@
 {% load modeltags %}
 
 {% block context_menu %}
-<div><a href="{% url issue_add %}">{% trans "Send a message" %}</a></div>
+<div><a href="{% url 'issue_add' %}">{% trans "Send a message" %}</a></div>
 {% endblock %}
 
 {% block content %}

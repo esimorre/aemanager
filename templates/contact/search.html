@@ -24,7 +24,7 @@
         <tbody>
         {% for contact in contacts.object_list %}
            <tr class="{% cycle 'row1' 'row2' %}">
-                <td><a href="{% url contact_detail contact.id %}">{{ contact }}</a></td>
+                <td><a href="{% url 'contact_detail' contact.id %}">{{ contact }}</a></td>
                 <td><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></td>
                 <td>{{ contact.default_phonenumber|default:'' }}</td>
             </tr>

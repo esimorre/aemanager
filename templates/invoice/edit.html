@@ -17,7 +17,7 @@ jQuery(document).ready(function(){
 
     if (!jQuery("input#id_contact-name").val()) {
         jQuery("input#id_contact-name").autocomplete({
-            source: "{% url contact_ajax_search %}",
+            source: "{% url 'contact_ajax_search' %}",
             create: function(event, ui){
                 jQuery('input#id_contact-name').after('<p class="help" id="new-contact-label">({% trans "new contact" %})</p>');
             },
@@ -33,7 +33,7 @@ jQuery(document).ready(function(){
                 jQuery('#id_address-zipcode').val(ui.item.address__zipcode);
                 jQuery('#id_address-city').val(ui.item.address__city);
                 jQuery('#id_address-country').val(ui.item.address__country__id);
-                jQuery.getJSON('{% url invoice_proposals %}?customer_id=' + ui.item.id, function(data){
+                jQuery.getJSON('{% url "invoice_proposals" %}?customer_id=' + ui.item.id, function(data){
                     jQuery(data).each(function(){
                         jQuery('.proposal-field').append('<option value="' + this.value + '">' + this.label + '</option>');
                     });
@@ -53,7 +53,7 @@ jQuery(document).ready(function(){
     $('.form-row').delegate('.label-field', 'focusin', function(){
         if($(this).is(':data(autocomplete)')) return;
         $(this).autocomplete({
-            source: "{% url catalog_item_search %}",
+            source: "{% url 'catalog_item_search' %}",
             select: function(event, ui){
                 $(this).val(ui.item.label);
                 $(this).nextAll('.category-field').val(ui.item.category);

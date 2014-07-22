@@ -64,7 +64,7 @@
                     var category = $('#id_category',row).val();
                     var price = jQuery('#id_unit_price',row).val();
                     var vat = jQuery('#id_vat_rate',row).val();
-                    jQuery.post("{% url catalog_edit %}?id="+id,
+                    jQuery.post("{% url 'catalog_edit' %}?id="+id,
                                 {"label": label,
                                  "category": category,
                                  "unit_price": price,
@@ -102,7 +102,7 @@
                 $('.cancel').click();
                 if (window.confirm('{% trans "Are you sure to want to delete this row" %}')) {
                     var item_id = jQuery(e.target).parents('tr').attr('id');
-                    jQuery.post("{% url catalog_delete %}",
+                    jQuery.post("{% url 'catalog_delete' %}",
                                 {"id": item_id,
                                  "csrfmiddlewaretoken": '{{ csrf_token }}'},
                                 function(data){
@@ -128,7 +128,7 @@
                 var item_id = $(row).attr('id');
                 var section = $(e.target).next('#id_section').val();
                 if (section) {
-                    $.post("{% url catalog_move %}",
+                    $.post("{% url 'catalog_move' %}",
                             {"id": item_id,
                              "section": section,
                              "csrfmiddlewaretoken": '{{ csrf_token }}'},
@@ -180,7 +180,7 @@
                     $('.section-rename-loading', row).show();
                     var name = $('#id_name', row).val();
                     var id = $(row).attr('id').replace('section-','');
-                    $.post("{% url catalog_section_rename %}?id="+id,
+                    $.post("{% url 'catalog_section_rename' %}?id="+id,
                            {"name": name,
                             "csrfmiddlewaretoken": '{{ csrf_token }}'},
                            function(data){
@@ -234,7 +234,7 @@
                     $('.section-rename-loading', row).show();
                     var new_section = $('#id_section', row).val();
                     var id = $(row).attr('id').replace('section-','');
-                    $.post("{% url catalog_section_delete %}?id="+id,
+                    $.post("{% url 'catalog_section_delete' %}?id="+id,
                            {"section": new_section,
                             "csrfmiddlewaretoken": '{{ csrf_token }}'},
                            function(data){
@@ -277,7 +277,7 @@ jQuery(document).ready(function(){
     };
 
     jQuery("input#id_section_label").autocomplete({
-        source: "{% url catalog_section_search %}"
+        source: "{% url 'catalog_section_search' %}"
     });
     $('#add').click(function(e){
         e.preventDefault();
@@ -289,7 +289,7 @@ jQuery(document).ready(function(){
         var unit_price = jQuery('#id_unit_price').val();
         var vat_rate = jQuery('#id_vat_rate').val();
         var section_label = jQuery('#id_section_label').val();
-        jQuery.post("{% url catalog_add %}",
+        jQuery.post("{% url 'catalog_add' %}",
                     {"label": label,
                      "category": category,
                      "unit_price": unit_price,

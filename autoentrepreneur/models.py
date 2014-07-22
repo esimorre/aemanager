@@ -197,8 +197,8 @@ class UserProfile(models.Model):
     activity = models.IntegerField(choices=AUTOENTREPRENEUR_ACTIVITY, blank=True, null=True, verbose_name=_('Activity'))
     professional_category = models.IntegerField(choices=AUTOENTREPRENEUR_PROFESSIONAL_CATEGORY, blank=True, null=True, verbose_name=_('Professional category'))
     creation_date = models.DateField(blank=True, null=True, verbose_name=_('Creation date'), help_text=_('format: mm/dd/yyyy'))
-    creation_help = models.BooleanField(verbose_name=_('Creation help')) # accre
-    freeing_tax_payment = models.BooleanField(verbose_name=_('Freeing tax payment')) # versement liberatoire
+    creation_help = models.NullBooleanField(verbose_name=_('Creation help')) # accre
+    freeing_tax_payment = models.NullBooleanField(verbose_name=_('Freeing tax payment')) # versement liberatoire
     payment_option = models.IntegerField(choices=AUTOENTREPRENEUR_PAYMENT_OPTION, blank=True, null=True, verbose_name=_('Payment option'))
     unregister_datetime = models.DateTimeField(verbose_name=_('Unregister date'), null=True, blank=True)
     iban_bban = models.CharField(max_length=34, blank=True, default='', verbose_name=_('IBAN/BBAN'), help_text=_('will appear on your invoices if set'))

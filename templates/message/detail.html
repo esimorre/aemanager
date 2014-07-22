@@ -3,7 +3,7 @@
 {% load modeltags %}
 
 {% block context_menu %}
-<div><a href="{% url message_list %}">{% trans "Back to list" %}</a></div>
+<div><a href="{% url 'message_list' %}">{% trans "Back to list" %}</a></div>
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,7 @@
     {% with issue as object %}
     <div class="detail-row">
       <div>
-      <label>{% trans "Author" %} :</label> {% if user.is_superuser and issue.owner %}<a href="{% url admin:auth_user_change issue.owner.pk %}">{% endif %}{{ issue.owner|display_name }}{% if user.is_superuser %}</a>{% endif %}
+      <label>{% trans "Author" %} :</label> {% if user.is_superuser and issue.owner %}<a href="{% url 'admin:auth_user_change' issue.owner.pk %}">{% endif %}{{ issue.owner|display_name }}{% if user.is_superuser %}</a>{% endif %}
       </div>
     </div>
     <div class="detail-row">

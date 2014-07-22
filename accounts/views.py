@@ -7,7 +7,7 @@ from accounts.forms import ExpenseForm, InvoiceRowForm, InvoiceForm
 from accounts.models import Expense, Invoice, InvoiceRow, InvoiceRowAmountError, \
     InvoiceIdNotUniqueError, INVOICE_STATE_PAID
 from django.http import HttpResponse
-from django.utils import simplejson
+import json
 from django.utils.formats import localize
 from django.db.transaction import commit_on_success
 from contact.models import Contact, CONTACT_TYPE_COMPANY
@@ -90,7 +90,7 @@ def expense_add(request):
             for key, msg in form.errors.items():
                 response['error_msg'].append("%s : %s" % (unicode(form[key].label), " ".join(msg)))
 
-    return HttpResponse(simplejson.dumps(response),
+    return HttpResponse(json.dumps(response),
                         mimetype='application/javascript')
 
 @settings_required
@@ -119,7 +119,7 @@ def expense_edit(request):
                 response['error_msg'].append("%s : %s" % (unicode(form[key].label), " ".join(msg)))
 
 
-    return HttpResponse(simplejson.dumps(response),
+    return HttpResponse(json.dumps(response),
                         mimetype='application/javascript')
 
 @settings_required
@@ -134,7 +134,7 @@ def expense_delete(request):
         response['error'] = 'ok'
         response['id'] = id
 
-    return HttpResponse(simplejson.dumps(response),
+    return HttpResponse(json.dumps(response),
                         mimetype='application/javascript')
 
 @settings_required
@@ -493,4 +493,4 @@ def invoice_proposals(request):
     data = []
     for proposal in proposals:
         data.append({'label': unicode(proposal), 'value': proposal.id})
-    return HttpResponse(simplejson.dumps(data), mimetype='application/javascript')
+    return HttpResponse(json.dumps(data), mimetype='application/javascript')

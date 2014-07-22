@@ -16,7 +16,7 @@ from django.db.models.query_utils import Q
 from django.forms.models import inlineformset_factory
 from contact.models import Contact
 from django.http import HttpResponse
-from django.utils import simplejson
+import json
 from accounts.models import Invoice
 from core.decorators import settings_required
 from autoentrepreneur.decorators import subscription_required
@@ -144,7 +144,7 @@ def contract_get_content(request):
     contract = get_object_or_404(Contract, pk=contract_id, owner=request.user)
     data = {'title': contract.title,
             'content': contract.content}
-    return HttpResponse(simplejson.dumps(data), mimetype='application/javascript')
+    return HttpResponse(json.dumps(data), mimetype='application/javascript')
 
 @settings_required
 @subscription_required
@@ -520,7 +520,7 @@ def proposal_uploaded_contract_download(request, id):
 def proposal_get_contract(request):
     proposal_id = request.GET.get('id')
     proposal = get_object_or_404(Proposal, pk=proposal_id, owner=request.user)
-    return HttpResponse(simplejson.dumps(proposal.contract_content), mimetype='application/javascript')
+    return HttpResponse(json.dumps(proposal.contract_content), mimetype='application/javascript')
 
 @settings_required
 @subscription_required
@@ -572,7 +572,7 @@ def catalog_add(request):
             for key, msg in form.errors.items():
                 response['error_msg'].append("%s : %s" % (unicode(form[key].label), " ".join(msg)))
 
-    return HttpResponse(simplejson.dumps(response),
+    return HttpResponse(json.dumps(response),
                         mimetype='application/javascript')
 
 @settings_required
@@ -585,7 +585,7 @@ def catalog_section_search(request):
                      'value': 'name'})
       .values('label', 'value'))
 
-    return HttpResponse(simplejson.dumps(data), mimetype='application/javascript')
+    return HttpResponse(json.dumps(data), mimetype='application/javascript')
 
 @settings_required
 @subscription_required
@@ -600,7 +600,7 @@ def catalog_item_search(request):
         row['vat_rate'] = str(row['vat_rate'])
         data.append(row)
 
-    return HttpResponse(simplejson.dumps(data), mimetype='application/javascript')
+    return HttpResponse(json.dumps(data), mimetype='application/javascript')
 
 @settings_required
 @subscription_required
@@ -629,7 +629,7 @@ def catalog_edit(request):
             for key, msg in form.errors.items():
                 response['error_msg'].append("%s : %s" % (unicode(form[key].label), " ".join(msg)))
 
-    return HttpResponse(simplejson.dumps(response),
+    return HttpResponse(json.dumps(response),
                         mimetype='application/javascript')
 
 @settings_required
@@ -644,7 +644,7 @@ def catalog_delete(request):
         response['error'] = 'ok'
         response['id'] = id
 
-    return HttpResponse(simplejson.dumps(response),
+    return HttpResponse(json.dumps(response),
                         mimetype='application/javascript')
 
 @settings_required
@@ -667,7 +667,7 @@ def catalog_move(request):
             for key, msg in form.errors.items():
                 response['error_msg'].append("%s : %s" % (unicode(form[key].label), " ".join(msg)))
 
-    return HttpResponse(simplejson.dumps(response),
+    return HttpResponse(json.dumps(response),
                         mimetype='application/javascript')
 
 @settings_required
@@ -689,7 +689,7 @@ def catalog_section_rename(request):
             for key, msg in form.errors.items():
                 response['error_msg'].append("%s : %s" % (unicode(form[key].label), " ".join(msg)))
 
-    return HttpResponse(simplejson.dumps(response),
+    return HttpResponse(json.dumps(response),
                         mimetype='application/javascript')
 
 @settings_required
@@ -713,5 +713,5 @@ def catalog_section_delete(request):
             for key, msg in form.errors.items():
                 response['error_msg'].append("%s : %s" % (unicode(form[key].label), " ".join(msg)))
 
-    return HttpResponse(simplejson.dumps(response),
+    return HttpResponse(json.dumps(response),
                         mimetype='application/javascript')

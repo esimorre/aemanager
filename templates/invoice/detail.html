@@ -3,7 +3,7 @@
 {% load modeltags %}
 {% load arithmetictags %}
 
-{% block title %}{% url contact_detail invoice.customer.id as customer_url %}{% blocktrans with invoice.customer as customer and customer_url as customer_url %}Invoice for <a href="{{ customer_url }}">{{ customer }}</a>{% endblocktrans %}{% endblock %}
+{% block title %}{% url 'contact_detail' invoice.customer.id as customer_url %}{% blocktrans with invoice.customer as customer and customer_url as customer_url %}Invoice for <a href="{{ customer_url }}">{{ customer }}</a>{% endblocktrans %}{% endblock %}
 
 {% block context_menu %}
 <div><a href="{% url invoice_edit invoice.id %}">{% trans "Edit" %}</a></div>

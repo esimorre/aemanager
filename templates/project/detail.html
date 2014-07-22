@@ -10,7 +10,7 @@
 {% block content %}
 <fieldset class="module aligned">
     <div class="detail-row">
-      <div><label>{{ project|verbose_name:"customer" }} :</label> <a href="{% url contact_detail project.customer.id %}">{{ project.customer|default:'' }}</a>
+      <div><label>{{ project|verbose_name:"customer" }} :</label> <a href="{% url 'contact_detail' project.customer.id %}">{{ project.customer|default:'' }}</a>
       </div>
     </div>
     <div class="detail-row">

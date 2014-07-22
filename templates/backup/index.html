@@ -41,7 +41,7 @@ jQuery(document).ready(function(){
                 <td>{{ backup_request.error_message %}</td>
                 {% endif %}
                 {% if backup_request.is_done %}
-                <td><a href="{% url backup_download %}">{{ backup_request.get_backup_filename }}</a></td>
+                <td><a href="{% url 'backup_download' %}">{{ backup_request.get_backup_filename }}</a></td>
                 {% endif %}
             </tr>
         </tbody>
@@ -116,7 +116,7 @@ jQuery(document).ready(function(){
 
 <h1>{% trans "CSV export" %}</h1>
 <div class="search-list">
-    <form action="{% url csv_export %}" method="get">
+    <form action="{% url 'csv_export' %}" method="get">
     <div>{% trans "You may download your invoices in CSV format for further treatments. CSV files are not backups and you won't be able to restore them." %}</div>
     {% csrf_token %}
     <fieldset class="module aligned">

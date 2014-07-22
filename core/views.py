@@ -11,7 +11,7 @@ from django.db.transaction import commit_on_success
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.utils import simplejson
+import json
 from accounts.models import Expense, Invoice, INVOICE_STATE_PAID, \
     PAYMENT_TYPE_BANK_CARD, InvoiceRow
 from core.decorators import settings_required, disabled_for_demo
@@ -34,7 +34,7 @@ from django.template import loader
 from django.contrib.admin.views.decorators import staff_member_required
 import time
 import datetime
-import urllib, urllib2
+import urllib
 from django.conf import settings
 from registration.models import RegistrationProfile
 from django.utils.encoding import smart_str
@@ -255,10 +255,10 @@ def index(request):
         previous_taxes = profile.get_tax_data(taxes['period_begin'] - datetime.timedelta(1))
     next_taxes = profile.get_tax_data(taxes['tax_due_date'] + datetime.timedelta(1))
 
-    charts = {'sales_progression':simplejson.dumps(sales_progression),
-              'waiting_progression':simplejson.dumps(waiting_progression),
-              'expenses_progression':simplejson.dumps(expenses_progression),
-              'profit_progression':simplejson.dumps(profit_progression)}
+    charts = {'sales_progression':json.dumps(sales_progression),
+              'waiting_progression':json.dumps(waiting_progression),
+              'expenses_progression':json.dumps(expenses_progression),
+              'profit_progression':json.dumps(profit_progression)}
 
     announcements = Announcement.objects.filter(enabled=True, important=False)
     important_announcements = Announcement.objects.filter(enabled=True, important=True)
@@ -359,7 +359,7 @@ def logo_delete(request):
         except:
             pass
 
-    return HttpResponse(simplejson.dumps(response),
+    return HttpResponse(json.dumps(response),
                         mimetype='application/javascript')
 
 @disabled_for_demo
@@ -426,7 +426,7 @@ def paypal_ipn(request):
     args = {'cmd': '_notify-validate'}
     args.update(data)
     params = urllib.urlencode(dict([k, v.encode('utf-8')] for k, v in args.items()))
-    paypal_response = urllib2.urlopen(settings.PAYPAL_URL + '/cgi-bin/webscr', params).read()
+    paypal_response = urllib.request.urlopen(settings.PAYPAL_URL + '/cgi-bin/webscr', params).read()
 
     # process the payment
     receiver_id = data['receiver_id']
@@ -449,13 +449,13 @@ def paypal_ipn(request):
                                                                          'error_message': ugettext('Not verified')})
 
     if paypal_response == 'VERIFIED':
-        if receiver_id <> settings.PAYPAL_RECEIVER_ID:
+        if receiver_id != settings.PAYPAL_RECEIVER_ID:
             subscription.error_message = ugettext('Receiver is not as defined in settings. Spoofing ?')
-        elif payment_status <> 'Completed':
+        elif payment_status != 'Completed':
             subscription.error_message = ugettext('Payment not completed')
-        elif payment_amount <> settings.PAYPAL_APP_SUBSCRIPTION_AMOUNT:
+        elif payment_amount != settings.PAYPAL_APP_SUBSCRIPTION_AMOUNT:
             subscription.error_message = ugettext('Amount altered. Bad guy ?')
-        elif payment_currency <> settings.PAYPAL_APP_SUBSCRIPTION_CURRENCY:
+        elif payment_currency != settings.PAYPAL_APP_SUBSCRIPTION_CURRENCY:
             subscription.error_message = ugettext('Amount altered. Bad guy ?')
         else:
             subscription.error_message = ugettext('Paid')

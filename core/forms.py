@@ -24,7 +24,7 @@ class PasswordForm(forms.Form):
         new_password = cleaned_data.get("new_password")
         retyped_new_password = cleaned_data.get("retyped_new_password")
 
-        if new_password <> retyped_new_password:
+        if new_password != retyped_new_password:
             self._errors["retyped_new_password"] = self.error_class([_("Password doesn't match")])
             del cleaned_data['retyped_new_password']
 

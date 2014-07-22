@@ -13,7 +13,7 @@ jQuery(document).ready(function(){
     jQuery('#delete-logo').click(function(e){
         e.preventDefault();
         if (window.confirm('{% trans "Are you sure to want to delete your customer header ?" %}')) {
-            jQuery.post("{% url logo_delete %}",
+            jQuery.post("{% url 'logo_delete' %}",
                         {"csrfmiddlewaretoken": '{{ csrf_token }}'},
                         function(data){
                             if(data.error == 'ok') {
@@ -88,7 +88,7 @@ jQuery(document).ready(function(){
     {% with form.logo_file as field %}
     <div class="form-row">
     {{ field.errors }}
-      <div><label for="{{ field.auto_id }}"{% if field.field.required %} class="required"{% endif %}>{{ field.label }}{% if field.field.required %}*{% endif %} :</label> <div class="multiline-value">{{ field }}{% if logo %}<div id="logo"><img src="{% url logo_overview %}"/> <a href="#" id="delete-logo"><img src="{{ MEDIA_URL }}img/icon_deletelink.gif" /></a></div>{% endif %}</div>
+      <div><label for="{{ field.auto_id }}"{% if field.field.required %} class="required"{% endif %}>{{ field.label }}{% if field.field.required %}*{% endif %} :</label> <div class="multiline-value">{{ field }}{% if logo %}<div id="logo"><img src="{% url 'logo_overview' %}"/> <a href="#" id="delete-logo"><img src="{{ MEDIA_URL }}img/icon_deletelink.gif" /></a></div>{% endif %}</div>
       {% if field.field.help_text %}
         <p class="help">{{ field.field.help_text|safe }}</p>
       {% endif %}

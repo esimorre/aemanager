@@ -12,7 +12,7 @@
                 </a>
             </li>
             <li class="{% if active == "business" %}active{% endif %}">
-                <a href="{% url project_running_list %}">
+                <a href="{% url 'project_running_list' %}">
                     <span class="menu-left"></span>
                     <span class="menu-mid">{% trans "Business" %}</span>
                     <span class="menu-right"></span>
@@ -20,23 +20,23 @@
                 <div class="sub">
                     <ul>
                         <li>
-                            <a href="{% url project_running_list %}">{% trans "Running projects" %}</a>
+                            <a href="{% url 'project_running_list' %}">{% trans "Running projects" %}</a>
                         </li>
                         <li>
-                            <a href="{% url project_finished_list %}">{% trans "Finished projects" %}</a>
+                            <a href="{% url 'project_finished_list' %}">{% trans "Finished projects" %}</a>
                         </li>
                         <li>
-                            <a href="{% url catalog_list %}">{% trans "Catalog" %}</a>
+                            <a href="{% url 'catalog_list' %}">{% trans "Catalog" %}</a>
                         </li>
                         <li>
-                            <a href="{% url project_add %}">{% trans "Add" %}</a>
+                            <a href="{% url 'project_add' %}">{% trans "Add" %}</a>
                         </li>
                     </ul>
                     <div class="btm-bg"></div>
                 </div>
             </li>
             <li class="{% if active == "accounts" %}active{% endif %}">
-                <a href="{% url invoice_list %}">
+                <a href="{% url 'invoice_list' %}">
                     <span class="menu-left"></span>
                     <span class="menu-mid">{% trans "Accounts" %}</span>
                     <span class="menu-right"></span>
@@ -44,20 +44,20 @@
                 <div class="sub">
                     <ul>
                         <li>
-                            <a href="{% url invoice_list %}">{% trans "Receipts/Invoices" %}</a>
+                            <a href="{% url 'invoice_list' %}">{% trans "Receipts/Invoices" %}</a>
                         </li>
                         <li>
-                            <a href="{% url expense_list %}">{% trans "Purchases/Expenses" %}</a>
+                            <a href="{% url 'expense_list' %}">{% trans "Purchases/Expenses" %}</a>
                         </li>
                         <li>
-                            <a href="{% url invoice_add_without_proposal %}">{% trans "Draw up an invoice" %}</a>
+                            <a href="{% url 'invoice_add_without_proposal' %}">{% trans "Draw up an invoice" %}</a>
                         </li>
                     </ul>
                     <div class="btm-bg"></div>
                 </div>
             </li>
             <li class="{% if active == "contact" %}active{% endif %}">
-                <a href="{% url contact_search %}">
+                <a href="{% url 'contact_search' %}">
                     <span class="menu-left"></span>
                     <span class="menu-mid">{% trans "Customers" %}</span>
                     <span class="menu-right"></span>
@@ -65,10 +65,10 @@
                 <div class="sub">
                     <ul>
                         <li>
-                            <a href="{% url contact_search %}">{% trans "Search" %}</a>
+                            <a href="{% url 'contact_search' %}">{% trans "Search" %}</a>
                             </li>
                         <li>
-                            <a href="{% url contact_add %}">{% trans "Add" %}</a>
+                            <a href="{% url 'contact_add' %}">{% trans "Add" %}</a>
                         </li>
                     </ul>
                     <div class="btm-bg"></div>
@@ -76,7 +76,7 @@
             </li>
             {% else %}
             <li class="{% if active == "admin" %}active{% endif %}">
-                <a href="{% url admin_dashboard %}">
+                <a href="{% url 'admin_dashboard' %}">
                     <span class="menu-left"></span>
                     <span class="menu-mid">{% trans "Admin" %}</span>
                     <span class="menu-right"></span>
@@ -84,16 +84,16 @@
                 <div class="sub">
                     <ul>
                         <li>
-                            <a href="{% url admin_dashboard %}">{% trans "Admin dashboard" %}</a>
+                            <a href="{% url 'admin_dashboard' %}">{% trans "Admin dashboard" %}</a>
                         </li>
                         <li>
-                            <a href="{% url message_list %}">{% trans "Messages" %}</a>
+                            <a href="{% url 'message_list' %}">{% trans "Messages" %}</a>
                         </li>
                         <li>
-                            <a href="{% url email_users %}">{% trans "Email users" %}</a>
+                            <a href="{% url 'email_users' %}">{% trans "Email users" %}</a>
                         </li>
                         <li>
-                            <a href="{% url admin:index %}">{% trans "Admin" %}</a>
+                            <a href="{% url 'admin:index' %}">{% trans "Admin" %}</a>
                         </li>
                     </ul>
                     <div class="btm-bg"></div>
@@ -101,7 +101,7 @@
             </li>
             {% endif %}
             <li class="{% if active == "account" %}active{% endif %}">
-                <a href="{% url settings_edit %}">
+                <a href="{% url 'settings_edit' %}">
                     <span class="menu-left"></span>
                     <span class="menu-mid">{% trans "My account" %}</span>
                     <span class="menu-right"></span>
@@ -109,23 +109,23 @@
                 <div class="sub">
                     <ul>
                         <li>
-                            <a href="{% url settings_edit %}">{% trans "Settings" %}</a>
+                            <a href="{% url 'settings_edit' %}">{% trans "Settings" %}</a>
                             </li>
                         <li>
-                            {%if demo_mode %}<del>{% endif %}<a href="{% url change_password %}">{% trans "Change password" %}</a>{%if demo_mode %}</del>{% endif %}
+                            {%if demo_mode %}<del>{% endif %}<a href="{% url 'change_password' %}">{% trans "Change password" %}</a>{%if demo_mode %}</del>{% endif %}
                         </li>
                         {% if not user.is_superuser %}
                         <li>
-                            {%if demo_mode %}<del>{% endif %}<a href="{% url subscribe %}">{% trans "My subscription" %}</a>{%if demo_mode %}</del>{% endif %}
+                            {%if demo_mode %}<del>{% endif %}<a href="{% url 'subscribe' %}">{% trans "My subscription" %}</a>{%if demo_mode %}</del>{% endif %}
                         </li>
                         <li>
-                            {%if demo_mode %}<del>{% endif %}<a href="{% url message_list %}">{% trans "My messages" %}{% if user.get_profile.unread_message_count %} ({{ user.get_profile.unread_message_count }}){% endif %}</a>{%if demo_mode %}</del>{% endif %}
+                            {%if demo_mode %}<del>{% endif %}<a href="{% url 'message_list' %}">{% trans "My messages" %}{% if user.get_profile.unread_message_count %} ({{ user.get_profile.unread_message_count }}){% endif %}</a>{%if demo_mode %}</del>{% endif %}
                         </li>
                         <li>
-                            {%if demo_mode %}<del>{% endif %}<a href="{% url notification_edit  %}">{% trans "Notifications" %}</a>{%if demo_mode %}</del>{% endif %}
+                            {%if demo_mode %}<del>{% endif %}<a href="{% url 'notification_edit'  %}">{% trans "Notifications" %}</a>{%if demo_mode %}</del>{% endif %}
                         </li>
                         <li>
-                            <a href="{% url backup %}">{% trans "Backup/Restore" %}</a>
+                            <a href="{% url 'backup' %}">{% trans "Backup/Restore" %}</a>
                         </li>
                         {% endif %}
                     </ul>
@@ -133,7 +133,7 @@
                 </div>
             </li>
             <li class="last{% if active == "help" %} active{% endif %}">
-                <a href="{% url issue_list %}">
+                <a href="{% url 'issue_list' %}">
                     <span class="menu-left"></span>
                     <span class="menu-mid">{% trans "Help" %}</span>
                     <span class="menu-right"></span>
@@ -141,13 +141,13 @@
                 <div class="sub">
                     <ul>
                         <li>
-                            {%if demo_mode %}<del>{% endif %}<a href="{% url issue_list %}">{% trans "Bug reports" %}</a>{%if demo_mode %}</del>{% endif %}
+                            {%if demo_mode %}<del>{% endif %}<a href="{% url 'issue_list' %}">{% trans "Bug reports" %}</a>{%if demo_mode %}</del>{% endif %}
                         </li>
                         <li>
-                            <a href="{% url topic_list %}">{% trans "Forum" %}</a>
+                            <a href="{% url 'topic_list' %}">{% trans "Forum" %}</a>
                         </li>
                         <li>
-                            <a href="{% url faq_list %}">{% trans "FAQ" %}</a>
+                            <a href="{% url 'faq_list' %}">{% trans "FAQ" %}</a>
                         </li>
                     </ul>
                     <div class="btm-bg"></div>
@@ -155,7 +155,7 @@
             </li>
         </ul>
         <div class="user-information">
-           <a href="{% url logout %}">{% trans "Logout" %}</a>
+           <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
         </div>
     </div>
     <div class="nav-right"></div>

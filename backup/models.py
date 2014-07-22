@@ -15,7 +15,13 @@ from accounts.models import Invoice, InvoiceRow, Expense
 import unicodedata
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from django.utils.encoding import smart_unicode
+
+try:
+    from django.utils.encoding import smart_unicode
+except:
+    from django.utils.encoding import smart_text
+    smart_unicode = smart_text
+
 from django.utils.xmlutils import SimplerXMLGenerator
 from core.context_processors import common
 from django.db.models.fields.related import ForeignKey, OneToOneField
@@ -299,7 +305,7 @@ class RestoreRequest(models.Model):
             uuid = node.getAttribute('uuid')
             try:
                 object = klass.objects.get(uuid=uuid)
-                if object.owner <> self.user:
+                if object.owner != self.user:
                     # import from another account, regenerate uuid to clone object
                     object = klass()
                     object.owner = self.user
@@ -319,7 +325,7 @@ class RestoreRequest(models.Model):
             return object
 
         def populate(object, node):
-            field_name_list = ['%s' % (field.name) for field in object._meta.local_fields if field.name <> 'ownedobject_ptr']
+            field_name_list = ['%s' % (field.name) for field in object._meta.local_fields if field.name != 'ownedobject_ptr']
 
             for child in node.childNodes:
                 field_name = child.nodeName

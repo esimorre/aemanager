@@ -3,9 +3,9 @@
 {% load modeltags %}
 
 {% block context_menu %}
-<div><a href="{% url issue_add %}">{% trans "Send an issue" %}</a></div>
-{% if state == "closed" %}<div><a href="{% url issue_list %}">{% trans "View open issues" %}</a></div>{% endif %}
-{% if state == "open" %}<div><a href="{% url closed_issue_list %}">{% trans "View closed issues" %}</a></div>{% endif %}
+<div><a href="{% url 'issue_add' %}">{% trans "Send an issue" %}</a></div>
+{% if state == "closed" %}<div><a href="{% url 'issue_list' %}">{% trans "View open issues" %}</a></div>{% endif %}
+{% if state == "open" %}<div><a href="{% url 'closed_issue_list' %}">{% trans "View closed issues" %}</a></div>{% endif %}
 {% endblock %}
 
 {% block content %}

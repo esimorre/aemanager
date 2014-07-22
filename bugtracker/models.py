@@ -1,10 +1,22 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from django.utils.text import truncate_html_words
 from django.conf import settings
 from django.db.models.signals import post_save
 import datetime
+
+from django.utils import six
+try:
+    from django.utils.text import truncate_html_words
+except ImportError:
+    # django >=1.5
+    from django.utils.text import Truncator
+    from django.utils.functional import allow_lazy
+    def truncate_html_words(s, num, end_text='...'):
+        truncate = end_text and ' %s' % end_text or ''
+        return Truncator(s).words(num, truncate=truncate, html=True)
+    truncate_html_words = allow_lazy(truncate_html_words, six.text_type)
+
 
 ISSUE_CATEGORY_BUG = 1
 ISSUE_CATEGORY_FEATURE = 2

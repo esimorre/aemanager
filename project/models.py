@@ -233,7 +233,7 @@ class Proposal(OwnedObject):
         return self.amount - (invoice_amount['amount'] or 0)
 
     def get_payment_delay(self):
-        if self.payment_delay <> PAYMENT_DELAY_OTHER:
+        if self.payment_delay != PAYMENT_DELAY_OTHER:
             return self.get_payment_delay_display()
         else:
             if self.payment_delay_type_other == PAYMENT_DELAY_TYPE_OTHER_END_OF_MONTH:
