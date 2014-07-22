@@ -1,0 +1,220 @@
+"""
+Django settings for aemanager project.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.6/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/1.6/ref/settings/
+"""
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+#BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_PATH = os.path.dirname(os.path.dirname(__file__))
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'ligliugliuguyftydklufilu'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+DEBUG_TOOLBAR = False
+DEMO = False
+DEMO_RESET_DELAY = 3 # hours
+
+ADMINS = (
+    ('', ''),
+)
+
+MANAGERS = ADMINS
+
+ALLOWED_HOSTS = []
+
+
+# Application definition
+
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'debug_toolbar',
+    'django_extensions',
+    #'south',
+    'registration',
+    # aemanager apps
+    'accounts',
+    'announcement',
+    'autoentrepreneur',
+    'backup',
+    'bugtracker',
+    'contact',
+    'core',
+    'faq',
+    'forum',
+    'newsletter',
+    'notification',
+    'project',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+    'core.context_processors.common',
+)
+
+ROOT_URLCONF = 'aemanager.urls'
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(BASE_PATH, 'templates')
+)
+
+WSGI_APPLICATION = 'aemanager.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_PATH, 'db.sqlite3'),
+    }
+}
+
+# Internationalization
+# https://docs.djangoproject.com/en/1.6/topics/i18n/
+
+TIME_ZONE = 'Europe/Paris'
+
+# Language code for this installation. All choices can be found here:
+# http://www.i18nguy.com/unicode/language-identifiers.html
+LANGUAGE_CODE = 'fr-fr'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+gettext = lambda s: s
+LANGUAGES = (
+    ('fr', gettext('French')),
+    ('en', gettext('English')),
+)
+
+LOCALE_PATHS = (
+    os.path.join(BASE_PATH, 'locale'),
+)
+
+SITE_ID = 1
+
+FORMAT_MODULE_PATH = 'formats'
+
+# Absolute path to the directory that holds media.
+# Example: "/home/media/media.lawrence.com/"
+MEDIA_ROOT = os.path.join(BASE_PATH, 'media')
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash if there is a path component (optional in other cases).
+# Examples: "http://media.lawrence.com", "http://example.com/media/"
+MEDIA_URL = '/static/'
+
+# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
+# trailing slash.
+# Examples: "http://foo.com/media/", "/media/".
+ADMIN_MEDIA_PREFIX = '/static/'
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+
+STATIC_URL = '/staticf/'
+
+AUTH_PROFILE_MODULE = 'autoentrepreneur.UserProfile'
+LOGIN_URL = '/user/login/'
+LOGOUT_URL = '/user/logout/'
+LOGIN_REDIRECT_URL = '/'
+REGISTRATION_OPEN = True
+if DEMO:
+    REGISTRATION_OPEN = False
+ACCOUNT_ACTIVATION_DAYS = 7
+ACCOUNT_UNREGISTER_DAYS = 7
+ACCOUNT_EXPIRED_DAYS = 365
+CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
+#SESSION_COOKIE_SECURE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+EMAIL_HOST = 'smtp.free.fr'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = ADMINS[0][1]
+EMAIL_SUBJECT_PREFIX = '[aemanager] '
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+if DEBUG:
+    PAYPAL_URL = 'https://www.sandbox.paypal.com'
+    PAYPAL_RECEIVER_ID = ''
+    PAYPAL_BUTTON_ID = ''
+    PAYPAL_APP_SUBSCRIPTION_AMOUNT = '0.50'
+    PAYPAL_APP_SUBSCRIPTION_CURRENCY = 'EUR'
+else:
+    PAYPAL_URL = 'https://www.paypal.com'
+    PAYPAL_RECEIVER_ID = ''
+    PAYPAL_BUTTON_ID = ''
+    PAYPAL_APP_SUBSCRIPTION_AMOUNT = '0.50'
+    PAYPAL_APP_SUBSCRIPTION_CURRENCY = 'EUR'
+
+BUGTRACKER_VOTES = 10
+LOGO_URL = 'http://example.com/static/img/logo.png'
+PARENT_SITE_URL = 'http://www.example.com'
+TRIAL_DURATION = 30
+FREE_SUBSCRIPTION = False
+SERVICE_PROVIDER_EMAIL = '' # when subscription is paid, create invoice for this account
+
+if DEBUG_TOOLBAR:
+    MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+    INTERNAL_IPS = ('127.0.0.1',)
+    INSTALLED_APPS = INSTALLED_APPS + ('debug_toolbar',)
+    DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
+
+import logging
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+logging.disable(logging.DEBUG)
+
+FILE_UPLOAD_DIR = os.path.join(BASE_PATH, 'media/') # with the trailing slash
+FILE_MAX_SIZE = '1 Mo' # just to display in help text. Must match LimitRequestBody in Apache
+
+CONCURRENT_BACKUP_REQUEST = 5
+CONCURRENT_RESTORE_REQUEST = 5
+
+GOOGLE_API_KEY = '' # http://code.google.com/intl/fr-FR/apis/loader/signup.html
+EXTERNAL_BUG_TRACKER_URL = 'https://github.com/fgaudin/aemanager/issues/%i'
+
+TITLE_PREFIX = 'AEMANAGER - '
