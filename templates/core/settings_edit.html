@@ -88,7 +88,7 @@ jQuery(document).ready(function(){
     {% with form.logo_file as field %}
     <div class="form-row">
     {{ field.errors }}
-      <div><label for="{{ field.auto_id }}"{% if field.field.required %} class="required"{% endif %}>{{ field.label }}{% if field.field.required %}*{% endif %} :</label> <div class="multiline-value">{{ field }}{% if logo %}<div id="logo"><img src="{% url 'logo_overview' %}"/> <a href="#" id="delete-logo"><img src="{{ MEDIA_URL }}img/icon_deletelink.gif" /></a></div>{% endif %}</div>
+      <div><label for="{{ field.auto_id }}"{% if field.field.required %} class="required"{% endif %}>{{ field.label }}{% if field.field.required %}*{% endif %} :</label> <div class="multiline-value">{{ field }}{% if logo %}<div id="logo"><img src="{{form.instance.logo_file.url}}"/> <a href="#" id="delete-logo"><img src="{{ MEDIA_URL }}img/icon_deletelink.gif" /></a></div>{% endif %}</div>
       {% if field.field.help_text %}
         <p class="help">{{ field.field.help_text|safe }}</p>
       {% endif %}
